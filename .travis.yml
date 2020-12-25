@@ -1,0 +1,32 @@
+git:
+  depth: false
+addons:
+  sonarcloud:
+    organization: "lucacappelletti94-github"
+    token:
+      secure: "AGsa4EcDcl9ls2HWaWz6b2iwKUDiRmZet7NEk2hwr4KOMHo6fe4r0E8VFDUjxsJWRr65Ys04NIf9KI0kDOnWHdK0Yq3YFbj7dxGGf0jLdd26fRObEMVJV3Jnopq688WYabQyJiE6CwmLA0mJilqoAY1Hx0PZSsq16DuSaq/30U7yV4yqyTJdsPHNZLMvPUZ9wPgqAgjLWEoiek27suznNCk3YXvxko0pufgpqWOGa8yrZn3PaX29CZBr35ArfQiF+GJLMEPnb+NiePTX1Y+tRskQFP5v6Q/bAfxEBLphzSc6bg6RhtcQ49Obpy7wWd+6yr2Tzou1PfNfHPjheHus76NUB0wWM5FPIZXbtWKxIAJCELlO0cXldm1T+yuWci3YiLbmuokF0pZw2p7i1QFkmEwFbhVrfIQ0Y+kZx/iVEwqHiiecOwi+pG6QLa2L52WoHmITYvjFvzvEdy6ubmvJ8FiqPdU1kzExnbe3S4u/Q+ApWRTRD4aoqhScVaFuVizR8ZtOd//39KCf5ePovStyudE3yN5ggbWU2AoSwqPFCVt0YVqjStF0hBZQmzD4DjLYEpmVKwda4+wSogpMLpTpN6G9hFoVy+X+IIRpQbML5RzpoDLc5QDWuJhoQ5TdjnkuTD488T7tWkbD2BMrb8om4Qnl8rTEtT7q7eFPFtgn/tM="
+language: python
+python:
+- '3.6'
+before_install:
+  - pip install --upgrade pytest
+install:
+- pip install .[test]
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+script:
+- rm -rf .coverage
+- coverage erase
+- pytest --cov=tensorflow_tsne --cov-report xml:coverage.xml 
+- coverage combine --append || true
+- coverage report
+- coverage xml
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then sonar-scanner; fi' # sonar only on non-PRs
+
+after_success:
+  - coveralls
+  - python-codacy-coverage -r coverage.xml
