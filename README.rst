@@ -1,7 +1,6 @@
 tensorflow_tsne
 =========================================================================================
-|travis| |sonar_quality| |sonar_maintainability| |codacy|
-|code_climate_maintainability| |pip| |downloads|
+|travis| |sonar_quality| |sonar_maintainability| |pip| |downloads|
 
 A possibly fast implementation of TSNE in TensorFlow
 
@@ -18,7 +17,7 @@ Tests Coverage
 Since some software handling coverages sometimes
 get slightly different results, here's three of them:
 
-|coveralls| |sonar_coverage| |code_climate_coverage|
+|coveralls| |sonar_coverage|
 
 A possibly fast implementation of TSNE in TensorFlow
 
@@ -49,14 +48,3 @@ A possibly fast implementation of TSNE in TensorFlow
 .. |downloads| image:: https://pepy.tech/badge/tensorflow-tsne
     :target: https://pepy.tech/project/tensorflow-tsne
     :alt: Pypi total project downloads
-
-.. |codacy| 
-    :alt: Codacy Maintainability
-
-.. |code_climate_maintainability| image:: https://api.codeclimate.com/v1/badges/640a4eab8264975b426a/maintainability
-    :target: https://codeclimate.com/github/LucaCappelletti94/tensorflow_tsne/maintainability
-    :alt: Maintainability
-
-.. |code_climate_coverage| image:: https://api.codeclimate.com/v1/badges/640a4eab8264975b426a/test_coverage
-    :target: https://codeclimate.com/github/LucaCappelletti94/tensorflow_tsne/test_coverage
-    :alt: Code Climate Coverage
